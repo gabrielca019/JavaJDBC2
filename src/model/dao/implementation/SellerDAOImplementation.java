@@ -66,7 +66,34 @@ public class SellerDAOImplementation implements SellerDAO {
 
 	@Override
 	public List<Seller> findAll() {
-		return null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		List<Seller> list = new ArrayList<>();
+		Map<Integer, Department> map = new HashMap<>();
+		
+		try {
+			preparedStatement = conn.prepareStatement("SELECT seller.*,department.Name as DepName "
+													+ "FROM seller INNER JOIN department "
+													+ "ON seller.DepartmentId = department.Id "
+													+ "ORDER BY Name");
+			resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				Department dep = map.get(resultSet.getInt("DepartmentId")); //instancia um departamento verificando se já existe um com o id retornado
+				if(dep == null) { //se não existir, ele vai criar, e assim nos proximos passos do while ele já estara salvo, para que todos objetos do tipo seller apontem para o mesmo objeto de department
+					dep = instantiateDepartment(resultSet);
+					map.put(resultSet.getInt("DepartmentId"), dep);
+				}
+				
+				Seller seller = instantiateSeller(resultSet, dep);
+				list.add(seller);
+			}
+			return list;
+		} catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(preparedStatement);
+			DB.closeResultSet(resultSet);
+		}
 	}
 	
 	@Override

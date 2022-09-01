@@ -25,6 +25,14 @@ public class Main {
 			System.out.println(obj);
 		
 		breakLine();
+		
+		System.out.println("--- TEST 3: Seller findAll ---");
+		list = sellerDAO.findAll();
+		for (Seller obj : list)
+			System.out.println(obj);
+		
+		breakLine();
+		
 	}
 	
 	public static void breakLine() {
