@@ -1,5 +1,6 @@
 package application;
 
+import java.util.Date;
 import java.util.List;
 
 import model.dao.DAOFactory;
@@ -31,6 +32,13 @@ public class Main {
 		for (Seller obj : list)
 			System.out.println(obj);
 		
+		breakLine();
+		
+		System.out.println("--- TEST 4: Seller insert ---");
+		Seller newSeller = new Seller(null, "Greg", "greg@gmail", new Date(), 4000.0, department);
+		sellerDAO.insert(newSeller);
+		System.out.println("Inserted! New id = " + newSeller.getId());
+
 		breakLine();
 		
 	}
