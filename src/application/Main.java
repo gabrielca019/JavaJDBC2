@@ -48,6 +48,10 @@ public class Main {
 		System.out.println("Update completed!");
 		
 		breakLine();
+		
+		System.out.println("--- TEST 6: Seller deleteById ---");
+		sellerDAO.deleteById(6);
+		System.out.println("Delete completed!");
 	}
 	
 	public static void breakLine() {
