@@ -122,8 +122,9 @@ public class SellerDAOImplementation implements SellerDAO {
 				Department department = instantiateDepartment(resultSet);
 				Seller seller = instantiateSeller(resultSet, department);
 				return seller;
+			} else {
+				throw new DbException("Seller Id not exists!");
 			}
-			return null;
 		} catch(SQLException e) {
 			throw new DbException(e.getMessage());
 		} finally {

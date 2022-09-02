@@ -18,6 +18,10 @@ public class Main2 {
 		newDepartment.setName("News");
 		departmentDAO.update(newDepartment);
 		System.out.println(newDepartment);
+		
+		System.out.println("--- TEST 3: Department findById ---");
+		Department department = departmentDAO.findById(6);
+		System.out.println(department);
 	}
 
 }

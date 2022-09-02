@@ -83,7 +83,30 @@ public class DepartmentDAOImplementation implements DepartmentDAO {
 
 	@Override
 	public Department findById(Integer id) {
-		return null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+		try {
+			preparedStatement = conn.prepareStatement("SELECT * "
+													+ "FROM department "
+													+ "WHERE Id = ?");
+			preparedStatement.setInt(1, id);
+			resultSet = preparedStatement.executeQuery();
+			
+			if(resultSet.next()) {
+				Department department = new Department();
+				department.setId(resultSet.getInt("Id"));
+				department.setName(resultSet.getString("Name"));
+				return department;
+			} else {
+				throw new DbException("Department Id not exists!");
+			}
+		} catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeResultSet(resultSet);
+			DB.closeStatement(preparedStatement);
+		}
 	}
 
 	@Override
