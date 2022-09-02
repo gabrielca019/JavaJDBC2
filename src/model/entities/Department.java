@@ -13,7 +13,7 @@ public class Department implements Serializable { //transforma o arquivo numa se
 		super();
 	}
 
-	public Department(int id, String name) {
+	public Department(Integer id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -23,7 +23,7 @@ public class Department implements Serializable { //transforma o arquivo numa se
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
