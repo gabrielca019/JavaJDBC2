@@ -41,6 +41,13 @@ public class Main {
 
 		breakLine();
 		
+		System.out.println("--- TEST 5: Seller update ---");
+		seller = sellerDAO.findById(1);
+		seller.setName("Calango Tango");
+		sellerDAO.update(seller);
+		System.out.println("Update completed!");
+		
+		breakLine();
 	}
 	
 	public static void breakLine() {
