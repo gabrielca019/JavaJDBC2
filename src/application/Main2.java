@@ -13,6 +13,11 @@ public class Main2 {
 		Department newDepartment = new Department(null, "Adventure");
 		departmentDAO.insert(newDepartment);
 		System.out.println(newDepartment);
+		
+		System.out.println("--- TEST 2: Department update ---");
+		newDepartment.setName("News");
+		departmentDAO.update(newDepartment);
+		System.out.println(newDepartment);
 	}
 
 }

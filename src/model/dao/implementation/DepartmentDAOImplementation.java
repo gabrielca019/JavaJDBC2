@@ -38,6 +38,8 @@ public class DepartmentDAOImplementation implements DepartmentDAO {
 				if(resultSet.next()) {
 					department.setId(resultSet.getInt(1));
 				}
+			} else {
+				throw new DbException("Unexpected error! no rows affected!");
 			}
 		} catch(SQLException e) {
 			throw new DbException(e.getMessage());
@@ -49,12 +51,34 @@ public class DepartmentDAOImplementation implements DepartmentDAO {
 
 	@Override
 	public void update(Department department) {
+		PreparedStatement preparedStatement = null;
 		
+		try {
+			preparedStatement = conn.prepareStatement("UPDATE department "
+													+ "SET "
+													+ "Name = ? "
+													+ "WHERE Id = ?");
+			preparedStatement.setString(1, department.getName());
+			preparedStatement.setInt(2, department.getId());
+			preparedStatement.executeUpdate();
+		} catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(preparedStatement);
+		}
 	}
 
 	@Override
 	public void deleteById(Integer id) {
+		/*PreparedStatement preparedStatement = null;
 		
+		try {
+			preparedStatement = conn.prepareStatement("");
+		} catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(preparedStatement);
+		}*/
 	}
 
 	@Override
